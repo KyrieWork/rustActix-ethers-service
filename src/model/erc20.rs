@@ -8,5 +8,5 @@ pub struct ReqCoinTask {
 #[derive(Serialize, Deserialize)]
 pub struct CoinBalance {
     pub address: String,
-    pub balance: u32,
+    pub balance: String,
 }
