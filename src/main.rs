@@ -1,4 +1,5 @@
 mod api;
+mod handler;
 mod model;
 use actix_web::{App, HttpServer};
 use api::erc20::balance_of;
