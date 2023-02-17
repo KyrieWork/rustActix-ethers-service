@@ -7,3 +7,9 @@ edition = "2021"
 [dependencies]
 actix-web = "4"
 serde = { version = "^1", features = ["derive"] }
+ethers = { version = "1.0.0", features = ["legacy"] }
+serde_json = { version = " 1.0.64 ", default-features = false, features = [
+  "raw_value"
+] }
+tokio = { version = "1.18", features = ["macros"] }
+eyre = "0.6"
