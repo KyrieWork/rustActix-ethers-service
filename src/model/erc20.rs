@@ -5,6 +5,7 @@ pub struct ReqBalance {
     pub contract: String,
     pub account: String,
 }
+#[derive(Deserialize)]
 pub struct ReqAllowance {
     pub contract: String,
     pub owner: String,

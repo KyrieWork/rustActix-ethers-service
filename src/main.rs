@@ -6,7 +6,7 @@ use api::erc20;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(erc20::balance_of))
+    HttpServer::new(|| App::new().service(erc20::balance).service(erc20::allowance))
         .bind(("127.0.0.1", 8080))?
         .run()
         .await

@@ -28,14 +28,26 @@ pub async fn erc20_contract(address: &str) -> IERC20<ethers::providers::Provider
 }
 
 pub async fn erc20_balance(contract_addr: &str, user_addr: &str) -> Result<U256, String> {
-    let account: Address = user_addr.parse().unwrap();
     let contract = erc20_contract(contract_addr).await;
-    // let balance = contract.balance_of(account).call().await;
+    let account: Address = user_addr.parse().unwrap();
     if let Ok(balance) = contract.balance_of(account).call().await {
-        // The value n contains the result of successful execution of the function.
         Ok(balance)
     } else {
-        // Handle the error here.
+        Err(String::from("contract.balance_of error message"))
+    }
+}
+
+pub async fn erc20_allowance(
+    contract_addr: &str,
+    owner: &str,
+    spender: &str,
+) -> Result<U256, String> {
+    let contract = erc20_contract(contract_addr).await;
+    let owner: Address = owner.parse().unwrap();
+    let spender: Address = spender.parse().unwrap();
+    if let Ok(balance) = contract.allowance(owner, spender).call().await {
+        Ok(balance)
+    } else {
         Err(String::from("contract.balance_of error message"))
     }
 }
