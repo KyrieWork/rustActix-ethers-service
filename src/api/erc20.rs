@@ -1,27 +1,19 @@
 use crate::handler::common::eth_format;
 use crate::handler::erc20::erc20_balance;
-use crate::model::{
-    common::ResFormat,
-    erc20::{CoinBalance, ReqCoinTask},
-};
+use crate::model::{common, erc20};
 use actix_web::{get, web, HttpResponse, Responder};
 
-#[get("/balanceOf/{address}")]
-pub async fn balance_of(path: web::Path<ReqCoinTask>) -> impl Responder {
+#[get("/erc20/balance")]
+pub async fn balance_of(data: web::Query<erc20::ReqBalance>) -> impl Responder {
     // code
-    let address: &str = &path.into_inner().address;
-    // let balance = eth_format(eth_balance(address.clone()).await.unwrap());
-    let balance = erc20_balance(
-        "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-        address.clone(),
-    )
-    .await
-    .unwrap();
+    let params = &data;
+    let contract: &str = &params.contract;
+    let account: &str = &params.account;
+    let balance = erc20_balance(contract, account.clone()).await.unwrap();
     // result
-    let res = ResFormat {
+    let res = common::ResFormat {
         code: 200,
-        data: CoinBalance {
-            address: address.to_string(),
+        data: erc20::ResBalance {
             balance: eth_format(balance),
         },
         msg: String::from("balance_of"),
