@@ -1,4 +1,4 @@
-# rustActix-ethers-service
+# rust-ethers-service
 
 使用 rust 编写的能够连接以太坊并操作合约的后端服务。
 
